@@ -14,7 +14,7 @@ zcat ~/path/to/access/logs* | awk -F'"' '{print $6}' | sort | uniq -c | sort -rn
 1. Clone repo
 2. Install dependencies (`composer install`)
 3. Add your `top-user-agents.txt` file in `data` directory
-4. Run `domain.tld/report.php`
+4. Run `domain.tld/report.php` or `# php report.php` (in console, for large UserAgents files)
 5. Look at the results :)
 
 

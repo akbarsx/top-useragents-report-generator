@@ -1,4 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+ini_set('max_execution_time', 0);
+ini_set('memory_limit', '1024M');
+
+
 require_once 'vendor/autoload.php';
 
 use DeviceDetector\DeviceDetector;
@@ -80,7 +87,7 @@ foreach ($user_agents_data as $ua) {
         array(
             $isBotClass,
             $line_pos,
-            $ua,
+            htmlspecialchars($ua),
             (($ua_is_bot == 1) ? "True" : 'False'),
             var_export($clientInfo, true),
             var_export($osInfo, true),
