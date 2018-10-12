@@ -29,9 +29,32 @@ $results_file_loc = str_replace(__DIR__, '', $results_file);
 // if report for current useragents already created - redirect
 if (file_exists($results_file)) {
     header('Location: ' . $results_file_loc);
+    echo 'Report already generated: <a href="' . $results_file_loc . '">view</a>.';
     exit();
 }
 
+
+function escape_row_data($data) {
+    return str_replace(
+        array(
+            "\r\n",
+            "\r",
+            "\n",
+            '   ',
+            '  ',
+            "'"
+        ),
+        array(
+            ' ',
+            ' ',
+            ' ',
+            ' ',
+            ' ',
+            "\'"
+        ),
+        $data
+    );
+}
 
 
 $tpl_start = file_get_contents(__DIR__ . '/result_tpl/start.html');
@@ -87,13 +110,13 @@ foreach ($user_agents_data as $ua) {
         array(
             $isBotClass,
             $line_pos,
-            htmlspecialchars($ua),
+            escape_row_data(htmlspecialchars($ua)),
             (($ua_is_bot == 1) ? "True" : 'False'),
-            var_export($clientInfo, true),
-            var_export($osInfo, true),
-            $device,
-            $brand,
-            $model
+            escape_row_data(var_export($clientInfo, true)),
+            escape_row_data(var_export($osInfo, true)),
+            escape_row_data($device),
+            escape_row_data($brand),
+            escape_row_data($model)
         ),
         $tpl_row
     );

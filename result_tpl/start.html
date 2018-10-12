@@ -8,28 +8,57 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
-      .ua_line {
-        word-break: break-all;
-      }
+.ua_line {
+  word-break: break-all;
+}
+
+.clusterize-scroll{
+  max-height: 95vh;
+  overflow: auto;
+}
+.clusterize-extra-row{
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.clusterize-extra-row.clusterize-keep-parity{
+  display: none;
+}
+.clusterize-content{
+  outline: 0;
+  counter-reset: clusterize-counter;
+}
+.clusterize-no-data td{
+  text-align: center;
+}
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.min.js"></script>
 
     <title>Device Detector Report for [UA_FILE]</title>
   </head>
   <body>
     <div class="container-fluid">
       <h1 class="text-center">Device Detector Report for [UA_FILE]</h1>
+      <div id="scrollArea" class="clusterize-scroll">
+        <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">UA string</th>
+            <th scope="col" class="alert-danger">isBot()</th>
+            <th scope="col">getClient()</th>
+            <th scope="col">getOs()</th>
+            <th scope="col">getDeviceName()</th>
+            <th scope="col">getBrandName()</th>
+            <th scope="col">getModel()</th>
+          </tr>
+        </thead>
+          <tbody id="contentArea" class="clusterize-content">
+            <tr class="clusterize-no-data">
+              <td>Loading data…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <table class="table table-bordered">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">UA string</th>
-          <th scope="col" class="alert-danger">isBot()</th>
-          <th scope="col">getClient()</th>
-          <th scope="col">getOs()</th>
-          <th scope="col">getDeviceName()</th>
-          <th scope="col">getBrandName()</th>
-          <th scope="col">getModel()</th>
-        </tr>
-      </thead>
-      <tbody>
+<script type="text/javascript">
+    var data = [
